@@ -1,6 +1,7 @@
 <table class="table table-striped">
   <thead class="thead-dark">
     <tr>
+      <th></th>
       <th>Name</th>
       <th>Price</th>
       <th>Units in Stock</th>
@@ -8,9 +9,10 @@
   </thead>
   <tbody>
     <tr *ngFor="let product of products">
-      <td>{{product.name}}</td>
-      <td>{{product.unitPrice | currency: 'PLN'}}</td>
-      <td>{{product.unitsInStock}}</td>
+      <td class="align-middle"><img style="height: 60px;" [src]="product.imageUrl" [alt]="product.name" /></td>
+      <td class="align-middle">{{product.name}}</td>
+      <td class="align-middle">{{product.unitPrice | currency: 'PLN'}}</td>
+      <td class="align-middle">{{product.unitsInStock}}</td>
     </tr>
   </tbody>
 </table>
