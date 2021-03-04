@@ -9,7 +9,7 @@
   </thead>
   <tbody>
     <tr *ngFor="let product of products">
-      <td class="align-middle"><img style="height: 60px;" [src]="product.imageUrl" [alt]="product.name" /></td>
+      <td class="align-middle"><img style="height: 200px;" [src]="product.imageUrl" [alt]="product.name" /></td>
       <td class="align-middle">{{product.name}}</td>
       <td class="align-middle">{{product.unitPrice | currency: 'PLN'}}</td>
       <td class="align-middle">{{product.unitsInStock}}</td>
