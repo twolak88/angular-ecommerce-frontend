@@ -9,16 +9,13 @@ import { Product } from '../common/product';
   providedIn: 'root'
 })
 export class ProductService {
-
-  private baseProductsUrl = `${environment.baseBackendServiceUrl}products/`;
+  private readonly searchUrl = `${environment.baseBackendServiceUrl}${environment.productsSearchByCategoryIdBackendServiceUrl}`;
 
   constructor(private httpClient: HttpClient) { }
 
   getProductList(currentCategoryId: number): Observable<Product[]> {
 
-    const searchUrl = `${this.baseProductsUrl}search/findByCategoryId`;
-
-    return this.httpClient.get<GetResponse>(searchUrl, {
+    return this.httpClient.get<GetResponse>(this.searchUrl, {
       params: {
         'id': currentCategoryId.toString()
       }
