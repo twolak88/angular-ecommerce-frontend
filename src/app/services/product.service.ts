@@ -10,13 +10,19 @@ import { Product } from '../common/product';
 })
 export class ProductService {
 
-  private baseUrl = environment.baseBackendServiceUrl + 'products';
+  private baseProductsUrl = `${environment.baseBackendServiceUrl}products/`;
 
   constructor(private httpClient: HttpClient) { }
 
   getProductList(currentCategoryId: number): Observable<Product[]> {
-    //TODO enhance service to handle currentCategoryId
-    return this.httpClient.get<GetResponse>(this.baseUrl)
+
+    const searchUrl = `${this.baseProductsUrl}search/findByCategoryId`;
+
+    return this.httpClient.get<GetResponse>(searchUrl, {
+      params: {
+        'id': currentCategoryId.toString()
+      }
+    })
       .pipe(
         map(response => response._embedded.products)
       );
