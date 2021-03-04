@@ -6,8 +6,8 @@ const appRoutes = [
   { path: 'category/:id', component: ProductListComponent },
   { path: 'category', component: ProductListComponent },
   { path: 'products', component: ProductListComponent },
-  { path: '', redirectTo: 'products', patchMatch: 'full' },
-  { path: '**', redirectTo: 'products', patchMatch: 'full' }
+  { path: '', redirectTo: '/products', pathMatch: 'full' },
+  { path: '**', redirectTo: '/products', pathMatch: 'full' }
 ];
 
 @NgModule({
