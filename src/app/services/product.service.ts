@@ -11,6 +11,11 @@ import { Product } from '../common/product';
 export class ProductService {
   constructor(private httpClient: HttpClient) { }
 
+  getProduct(productId: number) {
+    const productUrl = `${environment.baseBackendServiceUrl}${environment.productsBackendServiceUrl}${productId}`;
+    return this.httpClient.get<Product>(productUrl);
+  }
+
   getProductList(currentCategoryId: number): Observable<Product[]> {
     const searchUrl = `${environment.baseBackendServiceUrl}${environment.productsSearchByCategoryIdBackendServiceUrl}`;
     const params: HttpParams = new HttpParams()
