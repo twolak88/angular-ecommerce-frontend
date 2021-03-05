@@ -3,8 +3,21 @@
  * Products List
  * ----------------------------
  */
+ section{
+  position:relative
+}
 
- .product-box img {
+.section-content{
+  position:relative;
+  margin:0 auto;
+  z-index:1
+}
+
+.section-content-p30{
+  padding:0 30px
+}
+
+.product-box img {
   width: 150px;
 }
 
