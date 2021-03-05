@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable,  } from 'rxjs';
 import { map } from 'rxjs/operators'
@@ -9,16 +9,25 @@ import { Product } from '../common/product';
   providedIn: 'root'
 })
 export class ProductService {
-  private readonly searchUrl = `${environment.baseBackendServiceUrl}${environment.productsSearchByCategoryIdBackendServiceUrl}`;
-
   constructor(private httpClient: HttpClient) { }
 
   getProductList(currentCategoryId: number): Observable<Product[]> {
+    const searchUrl = `${environment.baseBackendServiceUrl}${environment.productsSearchByCategoryIdBackendServiceUrl}`;
+    const params: HttpParams = new HttpParams()
+      .set('id', currentCategoryId.toString());
+    return this.getProducts(searchUrl, params);
+  }
 
-    return this.httpClient.get<GetResponse>(this.searchUrl, {
-      params: {
-        'id': currentCategoryId.toString()
-      }
+  searchProducts(theKeyword: string): Observable<Product[]> {
+    const searchUrl = `${environment.baseBackendServiceUrl}${environment.productsSearchByNameBackendServiceUrl}`;
+    const params: HttpParams = new HttpParams()
+      .set('name', theKeyword);
+    return this.getProducts(searchUrl, params);
+  }
+
+  private getProducts(url: string, httpParams: HttpParams): Observable<Product[]> {
+    return this.httpClient.get<GetResponse>(url, {
+      params: httpParams
     })
     .pipe(
       map(response => response._embedded.products)
