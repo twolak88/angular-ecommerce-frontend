@@ -4,7 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { ProductListComponent } from './components/product-list/product-list.component';
-import { SidebarComponent } from './components/layout/sidebar/sidebar.component';
+import { ProductCategoryMenuComponent } from './components/layout/product-category-menu/product-category-menu.component';
 import { HeaderComponent } from './components/layout/header/header.component';
 import { FooterComponent } from './components/layout/footer/footer.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -13,7 +13,7 @@ import { AppRoutingModule } from './app-routing.module';
   declarations: [
     AppComponent,
     ProductListComponent,
-    SidebarComponent,
+    ProductCategoryMenuComponent,
     HeaderComponent,
     FooterComponent
   ],
