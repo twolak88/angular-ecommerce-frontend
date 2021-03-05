@@ -1,0 +1,43 @@
+/*
+ * ----------------------------
+ * Product Details
+ * ----------------------------
+ */
+section{
+  position:relative
+}
+
+.section-content{
+  position:relative;
+  margin:0 auto;
+  z-index:1
+}
+
+.section-content-p30{
+  padding:0 30px
+}
+
+.price{
+  margin:15px 0 0;
+  font-weight:800;
+  color:#0da8e4
+}
+
+.detail-section{
+  margin-top:60px
+}
+
+a.primary-btn{
+  background:#05143f;
+  padding:7px 20px;
+  text-align:center;
+  display:inline-block;
+  color:#fff;
+  border-radius:2px;
+  font-size:14px;
+  margin-top:5px
+}
+a.primary-btn:hover{
+  background:#0da8e4;
+  color:#fff
+}
