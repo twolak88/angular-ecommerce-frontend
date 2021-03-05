@@ -20,9 +20,9 @@ export class ProductService {
         'id': currentCategoryId.toString()
       }
     })
-      .pipe(
-        map(response => response._embedded.products)
-      );
+    .pipe(
+      map(response => response._embedded.products)
+    );
   }
 }
 
