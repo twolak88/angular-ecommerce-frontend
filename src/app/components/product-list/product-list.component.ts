@@ -79,4 +79,10 @@ export class ProductListComponent implements OnInit {
       }
     );
   }
+
+  updatePageSize(pageSize: number) {
+    this.pageSize = pageSize;
+    this.pageNumber = 1;
+    this.listProducts();
+  }
 }
