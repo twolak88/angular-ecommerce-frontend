@@ -3,7 +3,7 @@
  * Products List
  * ----------------------------
  */
- section{
+section{
   position:relative
 }
 
@@ -66,4 +66,8 @@ a.primary-btn{
 a.primary-btn:hover{
   background:#0da8e4;
   color:#fff
+}
+
+.footer-pagination{
+  text-align:center
 }

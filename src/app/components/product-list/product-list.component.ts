@@ -13,6 +13,9 @@ export class ProductListComponent implements OnInit {
   currentCategoryId: number;
   currentCategoryName: string;
   searchMode: boolean;
+  pageNumber: number = 1;
+  pageSize: number = 5;
+  totalElements: number = 0;
 
   constructor(private productService: ProductService,
     private activatedRoute: ActivatedRoute) { }
@@ -23,7 +26,7 @@ export class ProductListComponent implements OnInit {
     });
   }
 
-  private listProducts() {
+  listProducts() {
     this.searchMode = this.activatedRoute.snapshot.paramMap.has('keyword');
 
     if (this.searchMode) {
@@ -46,22 +49,33 @@ export class ProductListComponent implements OnInit {
   handleListProducts() {
     const hasCategoryId: boolean = this.activatedRoute.snapshot.paramMap.has('id');
     const hasCategoryName: boolean = this.activatedRoute.snapshot.paramMap.has('name');
+    let previousCategoryId: number;
 
     if (hasCategoryId) {
+      if (this.currentCategoryId) {
+        previousCategoryId = this.currentCategoryId;
+      }
       this.currentCategoryId = +this.activatedRoute.snapshot.paramMap.get('id');
     } else {
       this.currentCategoryId = 1;
     }
 
-    if(hasCategoryName) {
+    if (hasCategoryName) {
       this.currentCategoryName = this.activatedRoute.snapshot.paramMap.get('name');
     } else {
       this.currentCategoryName = 'Books';
     }
 
-    this.productService.getProductList(this.currentCategoryId).subscribe(
+    if (previousCategoryId && this.currentCategoryId != previousCategoryId) {
+      this.pageNumber = 1;
+    }
+
+    this.productService.getProductListPaginate(this.currentCategoryId, this.pageNumber - 1, this.pageSize).subscribe(
       productsData => {
-        this.products = productsData;
+        this.products = productsData._embedded.products;
+        this.pageNumber = productsData.page.number + 1;
+        this.pageSize = productsData.page.size;
+        this.totalElements = productsData.page.totalElements;
       }
     );
   }
