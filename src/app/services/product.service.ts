@@ -23,6 +23,17 @@ export class ProductService {
     return this.getProducts(searchUrl, params);
   }
 
+  getProductListPaginate(currentCategoryId: number, page: number, pageSize: number): Observable<GetResponse> {
+    const searchUrl = `${environment.baseBackendServiceUrl}${environment.productsSearchByCategoryIdBackendServiceUrl}`;
+    const params: HttpParams = new HttpParams()
+      .set('id', currentCategoryId.toString())
+      .set('page', page.toString())
+      .set('size', pageSize.toString());
+    return this.httpClient.get<GetResponse>(searchUrl, {
+      params: params
+    });
+  }
+
   searchProducts(theKeyword: string): Observable<Product[]> {
     const searchUrl = `${environment.baseBackendServiceUrl}${environment.productsSearchByNameBackendServiceUrl}`;
     const params: HttpParams = new HttpParams()
@@ -43,5 +54,12 @@ export class ProductService {
 interface GetResponse {
   _embedded: {
     products: Product[];
+  },
+  page: {
+    size: number,
+    totalElements: number,
+    totalPages: number,
+    number: number
+
   }
 }
