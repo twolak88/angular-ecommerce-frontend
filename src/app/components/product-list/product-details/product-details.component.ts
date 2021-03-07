@@ -35,4 +35,7 @@ export class ProductDetailsComponent implements OnInit {
     this.location.back();
   }
 
+  addToCart(product: Product) {
+    console.log(`${product.name}, ${product.unitPrice}`);
+  }
 }

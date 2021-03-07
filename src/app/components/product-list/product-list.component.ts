@@ -87,6 +87,10 @@ export class ProductListComponent implements OnInit {
     this.listProducts();
   }
 
+  addToCart(product: Product) {
+    console.log(`${product.name}, ${product.unitPrice}`);
+  }
+
   private processResult() {
     return productsData => {
       this.products = productsData._embedded.products;
