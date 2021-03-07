@@ -29,6 +29,8 @@ export class CartService {
     }
 
     this.computeCartTotals();
+
+    console.log(this.cartItems);
   }
 
   computeCartTotals() {
@@ -45,5 +47,7 @@ export class CartService {
 
     // this.totalQuantity.next(this.cartItems.reduce((acc, cur) => acc + cur.quantity, 0));
     // this.totalPrice.next(this.cartItems.reduce((acc, cur) => acc + cur.unitPrice*cur.quantity, 0));
+
+    console.log(`${totalPriceValue}, ${totalQuantityValue}`)
   }
 }
