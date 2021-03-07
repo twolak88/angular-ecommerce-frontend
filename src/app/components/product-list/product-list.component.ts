@@ -12,6 +12,7 @@ export class ProductListComponent implements OnInit {
   products: Product[];
   currentCategoryId: number;
   currentCategoryName: string;
+  previousKeyword: string;
   searchMode: boolean;
   pageNumber: number = 1;
   pageSize: number = 5;
@@ -37,13 +38,17 @@ export class ProductListComponent implements OnInit {
   }
 
   handleSearchProducts() {
-    const keyword: string = this.activatedRoute.snapshot.paramMap.get('keyword');
-    this.productService.searchProducts(keyword)
-      .subscribe(
-        productsData => {
-          this.products = productsData;
-        }
-      );
+    const currentKeyword: string = this.activatedRoute.snapshot.paramMap.get('keyword');
+
+    if (this.previousKeyword != currentKeyword) {
+      this.pageNumber = 1;
+    }
+    this.previousKeyword = currentKeyword;
+
+    this.productService.searchProductsPaginate(currentKeyword,
+                                              this.pageNumber - 1,
+                                              this.pageSize)
+      .subscribe(this.processResult());
   }
 
   handleListProducts() {
@@ -70,19 +75,24 @@ export class ProductListComponent implements OnInit {
       this.pageNumber = 1;
     }
 
-    this.productService.getProductListPaginate(this.currentCategoryId, this.pageNumber - 1, this.pageSize).subscribe(
-      productsData => {
-        this.products = productsData._embedded.products;
-        this.pageNumber = productsData.page.number + 1;
-        this.pageSize = productsData.page.size;
-        this.totalElements = productsData.page.totalElements;
-      }
-    );
+    this.productService.getProductListPaginate(this.currentCategoryId,
+                                              this.pageNumber - 1,
+                                              this.pageSize)
+      .subscribe(this.processResult());
   }
 
   updatePageSize(pageSize: number) {
     this.pageSize = pageSize;
     this.pageNumber = 1;
     this.listProducts();
+  }
+
+  private processResult() {
+    return productsData => {
+      this.products = productsData._embedded.products;
+      this.pageNumber = productsData.page.number + 1;
+      this.pageSize = productsData.page.size;
+      this.totalElements = productsData.page.totalElements;
+    }
   }
 }
