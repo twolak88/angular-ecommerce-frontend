@@ -28,6 +28,10 @@ export class CartDetailsComponent implements OnInit, OnDestroy {
     this.cartService.addToCart(cartItem);
   }
 
+  decrementQuantity(cartItem: CartItem) {
+    this.cartService.decrementQuantity(cartItem);
+  }
+
   private loadCartDetails() {
     this.cartItems = this.cartService.cartItems;
     this.subscriptions.add(this.cartService.totalPrice.subscribe(
