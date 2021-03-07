@@ -1,3 +1,8 @@
+.main-content{
+  padding-top:116px;
+  min-height:88vh
+}
+
 .section-content{
   position:relative;
   margin:0 auto;

@@ -3,6 +3,11 @@
  * Product Details
  * ----------------------------
  */
+.main-content{
+  padding-top:116px;
+  min-height:88vh
+}
+
 section{
   position:relative
 }
