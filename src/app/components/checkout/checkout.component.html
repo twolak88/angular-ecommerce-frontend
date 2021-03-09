@@ -15,7 +15,7 @@
               <div
                 class="alert alert-danger"
                 *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)">
-                <div *ngIf="firstName.errors.required">
+                <div *ngIf="firstName.errors.required || firstName.errors.notOnlyWhitespace">
                   First Name is required
                 </div>
                 <div *ngIf="firstName.errors.minlength">
@@ -33,7 +33,7 @@
               <div
                 class="alert alert-danger"
                 *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)">
-                <div *ngIf="lastName.errors.required">
+                <div *ngIf="lastName.errors.required || lastName.errors.notOnlyWhitespace">
                   Last Name is required
                 </div>
                 <div *ngIf="lastName.errors.minlength">
