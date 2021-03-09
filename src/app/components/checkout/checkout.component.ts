@@ -78,14 +78,21 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   onSubmit() {
     console.log('Handling the submit button');
     console.log(this.checkoutFormGroup.get('customer').value);
+
+    console.log('ShippingAddress country: ' + this.checkoutFormGroup.get('shippingAddress').value.country.name);
+    console.log('ShippingAddress state: ' + this.checkoutFormGroup.get('shippingAddress').value.state.name);
+    console.log('BillingAddress country: ' + this.checkoutFormGroup.get('billingAddress').value.country.name);
+    console.log('BillingAddress state: ' + this.checkoutFormGroup.get('billingAddress').value.state.name);
   }
 
   copyShippingAddressToBillingAddress(event) {
     if (event.target.checked) {
       this.checkoutFormGroup.controls.billingAddress
         .setValue(this.checkoutFormGroup.controls.shippingAddress.value);
+      this.billingAddressStates = this.shippingAddressStates;
     } else {
       this.checkoutFormGroup.controls.billingAddress.reset();
+      this.billingAddressStates = [];
     }
   }
 
