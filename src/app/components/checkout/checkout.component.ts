@@ -5,6 +5,7 @@ import { Country } from 'src/app/common/country';
 import { State } from 'src/app/common/state';
 import { ShopValidators } from 'src/app/validators/shop-validators';
 import { ShopFormService } from 'src/app/services/shop-form.service';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-checkout',
@@ -27,7 +28,8 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 
   constructor(
     private formBuilder: FormBuilder,
-    private shopFormService: ShopFormService
+    private shopFormService: ShopFormService,
+    private cartService: CartService
   ) {}
 
   ngOnInit(): void {
@@ -123,6 +125,8 @@ export class CheckoutComponent implements OnInit, OnDestroy {
         .getCountries()
         .subscribe((data) => (this.countries = data))
     );
+
+    this.reviewCartDetails();
   }
 
   ngOnDestroy(): void {
@@ -253,5 +257,14 @@ export class CheckoutComponent implements OnInit, OnDestroy {
         formGroup.get('state').setValue(data[0]);
       })
     );
+  }
+
+  reviewCartDetails() {
+    this.subscriptions.add(this.cartService.totalPrice.subscribe(
+      totalPrice => this.totalPrice = totalPrice
+    ));
+    this.subscriptions.add(this.cartService.totalQuantity.subscribe(
+      totalQuantity => this.totalQuantity = totalQuantity
+    ));
   }
 }
