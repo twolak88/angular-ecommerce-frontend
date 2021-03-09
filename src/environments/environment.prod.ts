@@ -4,5 +4,7 @@ export const environment = {
   productsBackendServiceUrl: 'products/',
   productsSearchByCategoryIdBackendServiceUrl: 'products/search/findByCategoryId',
   productsSearchByNameBackendServiceUrl: 'products/search/findByNameContaining',
-  productCategoryBackendServiceUrl: 'product-category/'
+  productCategoryBackendServiceUrl: 'product-category/',
+  countriesBackendServiceUrl: 'countries',
+  statesSearchByCountryCodeBackendServiceUrl: 'states/search/findByCountryCode'
 };
