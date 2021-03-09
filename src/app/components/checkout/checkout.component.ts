@@ -1,6 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { Country } from 'src/app/common/country';
+import { State } from 'src/app/common/state';
 import { ShopFormService } from 'src/app/services/shop-form.service';
 
 @Component({
@@ -17,6 +19,10 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 
   creditCardYears: number[] = [];
   creditCardMonths: number[] = [];
+
+  countries: Country[] = [];
+  shippingAddressStates: State[] = [];
+  billingAddressStates: State[] = [];
 
   constructor(private formBuilder: FormBuilder,
     private shopFormService: ShopFormService) { }
@@ -59,6 +65,10 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     this.subscriptions.add(this.shopFormService.getCreditCardYears().subscribe(
       data => this.creditCardYears = data
     ));
+
+    this.subscriptions.add(this.shopFormService.getCountries().subscribe(
+      data => this.countries = data
+    ));
   }
 
   ngOnDestroy(): void {
@@ -95,6 +105,22 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 
     this.subscriptions.add(this.shopFormService.getCreditCardMonths(startMonth).subscribe(
       data => this.creditCardMonths = data
+    ));
+  }
+
+  getStates(formGroupName: string) {
+    const formGroup = this.checkoutFormGroup.get(formGroupName);
+    const countryCode = formGroup.value.country.code;
+
+    this.subscriptions.add(this.shopFormService.getStates(countryCode).subscribe(
+      data => {
+        if (formGroupName === 'shippingAddress') {
+          this.shippingAddressStates = data;
+        } else {
+          this.billingAddressStates = data;
+        }
+        formGroup.get('state').setValue(data[0]);
+      }
     ));
   }
 }
