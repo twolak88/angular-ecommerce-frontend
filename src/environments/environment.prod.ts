@@ -6,5 +6,6 @@ export const environment = {
   productsSearchByNameBackendServiceUrl: 'products/search/findByNameContaining',
   productCategoryBackendServiceUrl: 'product-category/',
   countriesBackendServiceUrl: 'countries',
-  statesSearchByCountryCodeBackendServiceUrl: 'states/search/findByCountryCode'
+  statesSearchByCountryCodeBackendServiceUrl: 'states/search/findByCountryCode',
+  checkoutBackendServiceUrl: 'checkout/purchase'
 };
