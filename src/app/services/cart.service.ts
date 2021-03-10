@@ -67,4 +67,10 @@ export class CartService {
 
     console.log(`${totalPriceValue}, ${totalQuantityValue}`)
   }
+
+  reset() {
+    this.cartItems = [];
+    this.totalPrice.next(0);
+    this.totalQuantity.next(0);
+  }
 }
