@@ -4,14 +4,13 @@ import myAppConfig from './config/my-app-config';
 import { OktaAuthModule, OKTA_CONFIG } from '@okta/okta-angular';
 
 const oktaConfig = Object.assign({
-  onAuthRequired: (injector) => {
+  onAuthRequired: (oktaAuth, injector) => {
     const router = injector.get(Router);
     router.navigate(['/login']);
   }
 }, myAppConfig.oidc);
 
 @NgModule({
-  declarations: [],
   imports: [
     OktaAuthModule
   ],

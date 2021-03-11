@@ -18,6 +18,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './components/login/login.component';
 import { LoginStatusComponent } from './components/login-status/login-status.component';
 import { AppOctaModule } from './app-octa.module';
+import { MembersPageComponent } from './components/members-page/members-page.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { AppOctaModule } from './app-octa.module';
     CartDetailsComponent,
     CheckoutComponent,
     LoginComponent,
-    LoginStatusComponent
+    LoginStatusComponent,
+    MembersPageComponent
   ],
   imports: [
     BrowserModule,
