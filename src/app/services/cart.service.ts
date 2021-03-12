@@ -6,12 +6,24 @@ import { CartItem } from '../common/cart-item';
   providedIn: 'root'
 })
 export class CartService {
+  readonly CART_ITEMS_STORAGE_ITEM_NAME = 'cartItems';
   cartItems: CartItem[] = [];
 
   totalPrice: Subject<number> = new BehaviorSubject<number>(0);
   totalQuantity: Subject<number> = new BehaviorSubject<number>(0);
 
-  constructor() { }
+  storage: Storage = sessionStorage;
+  // storage: Storage = localStorage;
+
+  constructor() {
+    let data = JSON.parse(this.storage.getItem(this.CART_ITEMS_STORAGE_ITEM_NAME));
+
+    if (data != null) {
+      this.cartItems = data;
+
+      this.computeCartTotals();
+    }
+  }
 
   addToCart(cartItem: CartItem) {
     let alreadyExistsInCart = false;
@@ -65,6 +77,8 @@ export class CartService {
     // this.totalQuantity.next(this.cartItems.reduce((acc, cur) => acc + cur.quantity, 0));
     // this.totalPrice.next(this.cartItems.reduce((acc, cur) => acc + cur.unitPrice*cur.quantity, 0));
 
+    this.persistCartItems();
+
     console.log(`${totalPriceValue}, ${totalQuantityValue}`)
   }
 
@@ -72,5 +86,9 @@ export class CartService {
     this.cartItems = [];
     this.totalPrice.next(0);
     this.totalQuantity.next(0);
+  }
+
+  private persistCartItems() {
+    this.storage.setItem(this.CART_ITEMS_STORAGE_ITEM_NAME, JSON.stringify(this.cartItems));
   }
 }
