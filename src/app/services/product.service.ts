@@ -72,6 +72,5 @@ export interface GetResponse {
     totalElements: number,
     totalPages: number,
     number: number
-
   }
 }

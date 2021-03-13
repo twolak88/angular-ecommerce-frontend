@@ -11,7 +11,10 @@ export const environment = {
   productCategoryBackendServiceUrl: 'product-category/',
   countriesBackendServiceUrl: 'countries',
   statesSearchByCountryCodeBackendServiceUrl: 'states/search/findByCountryCode',
-  checkoutBackendServiceUrl: 'checkout/purchase'
+  checkoutBackendServiceUrl: 'checkout/purchase',
+  orderSearchByCustomerEmail: 'orders/search/findByCustomerEmail',
+
+  dateFormat: 'medium'
 };
 
 /*

@@ -5,12 +5,13 @@ import { CartDetailsComponent } from "./components/cart-details/cart-details.com
 import { CheckoutComponent } from "./components/checkout/checkout.component";
 import { LoginComponent } from "./components/login/login.component";
 import { MembersPageComponent } from "./components/members-page/members-page.component";
+import { OrderListComponent } from "./components/order-list/order-list.component";
 import { ProductDetailsComponent } from "./components/product-list/product-details/product-details.component";
 import { ProductListComponent } from "./components/product-list/product-list.component";
 
 const appRoutes = [
   { path: 'members', component: MembersPageComponent, canActivate: [OktaAuthGuard] },
-
+  { path: 'orders', component: OrderListComponent, canActivate: [OktaAuthGuard] },
   { path: 'login/callback', component: OktaCallbackComponent },
   { path: 'login', component: LoginComponent },
 
