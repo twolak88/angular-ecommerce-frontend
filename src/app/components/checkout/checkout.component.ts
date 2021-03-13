@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import { Order } from 'src/app/common/order';
 import { OrderItem } from 'src/app/common/order-item';
 import { Purchase } from 'src/app/common/purchase';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-checkout',
@@ -36,23 +37,36 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     private shopFormService: ShopFormService,
     private cartService: CartService,
     private checkoutService: CheckoutService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
+    let initialFirstName: string = '';
+    let initialLastName: string = '';
+    let initialEmail: string = '';
+    this.authService.authData.subscribe(
+      authData => {
+        if (authData.isAuthenticated) {
+          initialEmail = authData.email;
+          initialFirstName = authData.firstName;
+          initialLastName = authData.lastName;
+        }
+      }
+    )
     this.checkoutFormGroup = this.formBuilder.group({
       customer: this.formBuilder.group({
-        firstName: new FormControl('', [
+        firstName: new FormControl(initialFirstName, [
           Validators.required,
           Validators.minLength(2),
           ShopValidators.notOnlyWhitespace,
         ]),
-        lastName: new FormControl('', [
+        lastName: new FormControl(initialLastName, [
           Validators.required,
           Validators.minLength(2),
           ShopValidators.notOnlyWhitespace,
         ]),
-        email: new FormControl('', [
+        email: new FormControl(initialEmail, [
           Validators.required,
           Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
         ])
